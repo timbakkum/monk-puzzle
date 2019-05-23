@@ -6,13 +6,24 @@ import { movePiece } from "./store/puzzle/puzzle.actions";
 
 export function Puzzle({ pieces, emptyIndex, handlePieceClick }) {
   return (
-    <div>
+    <div
+      style={{
+        // TODO make styled component
+        border: "1px solid black",
+        width: "500px",
+        height: "500px",
+        margin: "20px auto",
+        position: "relative"
+      }}
+    >
       {pieces.map((p, i) => (
         <Piece
           key={p}
           index={i}
           pieceNumber={p}
           position={getPiecePosition(i)}
+          // TODO intendedPosition is a shit name, rename this
+          intendedPosition={getPiecePosition(p)}
           isEmpty={emptyIndex === i}
           handlePieceClick={handlePieceClick}
         />
@@ -22,7 +33,6 @@ export function Puzzle({ pieces, emptyIndex, handlePieceClick }) {
 }
 
 const mapStateToProps = state => {
-  console.log(state.puzzle.pieces.indexOf(state.puzzle.emptyPiece));
   return {
     // TODO refactor to selector fn as well?
     pieces: state.puzzle.pieces,

@@ -1,5 +1,12 @@
-import { hasEmptyAdjacentPiece } from "../helpers/puzzle-grid.helpers";
-import { swapPiece } from "../store/puzzle/puzzle.actions";
+import {
+  hasEmptyAdjacentPiece,
+  isSolved
+} from "../helpers/puzzle-grid.helpers";
+import {
+  swapPiece,
+  shufflePieces,
+  winPuzzle
+} from "../store/puzzle/puzzle.actions";
 
 export const puzzleMiddleware = store => next => action => {
   switch (action.type) {
@@ -18,11 +25,23 @@ export const puzzleMiddleware = store => next => action => {
         store.dispatch(swapPiece(action.payload.pieceIndex, adjacentIndex));
       }
       break;
+    case "SWAP_PIECE":
+      const swapResult = next(action);
+      const newState = store.getState();
 
+      const isPuzzleSolved = isSolved(newState.puzzle.pieces);
+      if (isPuzzleSolved) {
+        store.dispatch(winPuzzle());
+      }
+      return swapResult;
+
+    case "START_PUZZLE":
+      store.dispatch(shufflePieces());
+      break;
     default:
       break;
   }
-  next(action);
+  return next(action);
 };
 
 export default puzzleMiddleware;

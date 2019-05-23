@@ -1,4 +1,50 @@
-import { hasEmptyAdjacentPiece } from "./puzzle-grid.helpers";
+import { hasEmptyAdjacentPiece, isSolved } from "./puzzle-grid.helpers";
+
+describe("isSolved", () => {
+  it("returns false if one of the indices does not match the pieces number", () => {
+    const result = isSolved([
+      0,
+      2,
+      1,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ]);
+    expect(result).toEqual(false);
+  });
+
+  it("returns true if all of the indices match the pieces numbers", () => {
+    const result = isSolved([
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ]);
+    expect(result).toEqual(true);
+  });
+});
 
 describe("adjacent empty piece helper", () => {
   it("returns false if index is equal to empty piece index", () => {

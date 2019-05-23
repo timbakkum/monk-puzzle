@@ -1,4 +1,24 @@
 import { PUZZLE_ROWS, PUZZLE_COLUMNS } from "./../constants";
+import shuffle from "./shuffle";
+
+export const isSolved = pieces => {
+  // solved array values equal 0, 1, 2, 3 and so forth
+  // so we can easily compare for equality to the index of the loop
+  for (let index = 0; index < pieces.length; index++) {
+    const currentPiece = pieces[index];
+    if (currentPiece !== index) return false;
+  }
+  return true;
+};
+
+export const shufflePieces = pieces => {
+  let shuffledPieces;
+  do {
+    shuffledPieces = shuffle(pieces.slice());
+  } while (!isSolved(pieces));
+
+  return shuffledPieces;
+};
 
 export const getPiecePosition = index => {
   const row = Math.floor(index / PUZZLE_COLUMNS);

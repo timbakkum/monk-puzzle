@@ -1,4 +1,5 @@
-import { shufflePieces, swapPiece } from "../../helpers/puzzle-grid.helpers";
+import { shufflePieces, swapPiece } from "./../../helpers/puzzle-grid.helpers";
+import * as constants from "./puzzle.constants";
 
 const initialState = {
   isSolved: false,
@@ -10,14 +11,14 @@ const initialState = {
 
 export const puzzle = (state = initialState, { type, payload }) => {
   switch (type) {
-    case "START_PUZZLE":
+    case constants.START_PUZZLE:
       return {
         ...state,
         moves: 0,
         isStarted: true,
         isSolved: false
       };
-    case "START_EASY_MODE":
+    case constants.START_EASY_MODE:
       return {
         ...state,
         moves: 0,
@@ -25,22 +26,22 @@ export const puzzle = (state = initialState, { type, payload }) => {
         isSolved: false,
         pieces: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 14]
       };
-    case "MOVE_PIECE":
+    case constants.MOVE_PIECE:
       return {
         ...state,
         moves: state.moves + 1
       };
-    case "SWAP_PIECE":
+    case constants.SWAP_PIECE:
       const { pieceIndex, emptyIndex } = payload;
       const newPieces = swapPiece([...state.pieces], pieceIndex, emptyIndex);
       return { ...state, pieces: newPieces, isEmptyPiece: pieceIndex };
-    case "SHUFFLE_PIECES":
+    case constants.SHUFFLE_PIECES:
       const shuffledPieces = shufflePieces([...state.pieces]);
       return {
         ...state,
         pieces: shuffledPieces
       };
-    case "WIN_PUZZLE":
+    case constants.WIN_PUZZLE:
       return {
         ...state,
         isSolved: true,

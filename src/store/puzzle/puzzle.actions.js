@@ -1,30 +1,32 @@
+import * as constants from "./puzzle.constants";
+
 export const shufflePieces = () => {
   return {
-    type: "SHUFFLE_PIECES"
+    type: constants.SHUFFLE_PIECES
   };
 };
 
 export const startPuzzle = () => {
   return {
-    type: "START_PUZZLE"
+    type: constants.START_PUZZLE
   };
 };
 
 export const startEasyMode = () => {
   return {
-    type: "START_EASY_MODE"
+    type: constants.START_EASY_MODE
   };
 };
 
 export const resetPuzzle = () => {
   return {
-    type: "RESET_PUZZLE"
+    type: constants.RESET_PUZZLE
   };
 };
 
 export const movePiece = pieceIndex => {
   return {
-    type: "MOVE_PIECE",
+    type: constants.MOVE_PIECE,
     payload: {
       pieceIndex
     }
@@ -33,7 +35,7 @@ export const movePiece = pieceIndex => {
 
 export const swapPiece = (pieceIndex, emptyIndex) => {
   return {
-    type: "SWAP_PIECE",
+    type: constants.SWAP_PIECE,
     payload: {
       pieceIndex,
       emptyIndex
@@ -43,6 +45,6 @@ export const swapPiece = (pieceIndex, emptyIndex) => {
 
 export const winPuzzle = () => {
   return {
-    type: "WIN_PUZZLE"
+    type: constants.WIN_PUZZLE
   };
 };

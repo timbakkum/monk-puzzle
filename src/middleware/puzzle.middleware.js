@@ -8,11 +8,12 @@ import {
   shufflePieces,
   winPuzzle
 } from "../store/puzzle/puzzle.actions";
+import * as constants from "./../store/puzzle/puzzle.constants";
 import { emptyPieceIndexSelector } from "./../store/puzzle/puzzle.selectors";
 
 export const puzzleMiddleware = store => next => action => {
   switch (action.type) {
-    case "MOVE_PIECE":
+    case constants.MOVE_PIECE:
       const state = store.getState();
       const adjacentIndex = emptyPieceIndexSelector(state);
       const shouldSwap = hasEmptyAdjacentPiece(
@@ -33,7 +34,7 @@ export const puzzleMiddleware = store => next => action => {
         });
       }
       break;
-    case "SWAP_PIECE":
+    case constants.SWAP_PIECE:
       const swapResult = next(action);
       const newState = store.getState();
 
@@ -42,7 +43,7 @@ export const puzzleMiddleware = store => next => action => {
         store.dispatch(winPuzzle());
       }
       return swapResult;
-    case "WIN_PUZZLE":
+    case constants.WIN_PUZZLE:
       toast.success("🏆 A winner is you!", {
         position: "bottom-right",
         autoClose: 3000,
@@ -52,7 +53,7 @@ export const puzzleMiddleware = store => next => action => {
         draggable: true
       });
       break;
-    case "START_PUZZLE":
+    case constants.START_PUZZLE:
       store.dispatch(shufflePieces());
       break;
     default:

@@ -8,15 +8,13 @@ import {
   shufflePieces,
   winPuzzle
 } from "../store/puzzle/puzzle.actions";
+import { emptyPieceIndexSelector } from "./../store/puzzle/puzzle.selectors";
 
 export const puzzleMiddleware = store => next => action => {
   switch (action.type) {
     case "MOVE_PIECE":
       const state = store.getState();
-      // TODO refactor below logic into selector function
-      const adjacentIndex = state.puzzle.pieces.indexOf(
-        state.puzzle.emptyPiece
-      );
+      const adjacentIndex = emptyPieceIndexSelector(state);
       const shouldSwap = hasEmptyAdjacentPiece(
         action.payload.pieceIndex,
         adjacentIndex

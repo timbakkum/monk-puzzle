@@ -4,6 +4,10 @@ import styled from "styled-components";
 import Piece from "./Piece";
 import { getPiecePosition } from "./helpers/puzzle-grid.helpers";
 import { movePiece } from "./store/puzzle/puzzle.actions";
+import {
+  emptyPieceIndexSelector,
+  piecesSelector
+} from "./store/puzzle/puzzle.selectors";
 
 const StyledPuzzle = styled.div`
   border: 1px solid black;
@@ -36,10 +40,8 @@ export function Puzzle({ pieces, emptyIndex, handlePieceClick, isStarted }) {
 
 const mapStateToProps = state => {
   return {
-    // TODO refactor to selector fn as well?
-    pieces: state.puzzle.pieces,
-    // TODO refactor below to selector fn
-    emptyIndex: state.puzzle.pieces.indexOf(state.puzzle.emptyPiece),
+    pieces: piecesSelector(state),
+    emptyIndex: emptyPieceIndexSelector(state),
     isStarted: state.puzzle.isStarted
   };
 };

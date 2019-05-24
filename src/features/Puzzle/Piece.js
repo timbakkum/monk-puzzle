@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useSpring, animated } from "react-spring";
-import { PUZZLE_SIZE, PUZZLE_COLUMNS, PUZZLE_ROWS } from "./constants";
+import { PUZZLE_SIZE, PUZZLE_COLUMNS, PUZZLE_ROWS } from "../../constants";
 import monksImage from "./monks.jpg";
 
 const StyledPiece = styled.div`

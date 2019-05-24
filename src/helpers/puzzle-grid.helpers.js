@@ -20,6 +20,17 @@ export const shufflePieces = pieces => {
   return shuffledPieces;
 };
 
+export const swapPiece = (pieces, originIndex, targetIndex) => {
+  // assign the pieces to be swapped to the index of the other piece
+  const newPieces = [...pieces];
+  [newPieces[targetIndex], newPieces[originIndex]] = [
+    newPieces[originIndex],
+    newPieces[targetIndex]
+  ];
+
+  return newPieces;
+};
+
 export const getPiecePosition = index => {
   const row = Math.floor(index / PUZZLE_COLUMNS);
   const column = index % PUZZLE_COLUMNS;

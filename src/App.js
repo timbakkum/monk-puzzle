@@ -1,8 +1,8 @@
 import React from "react";
 import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";
-import Puzzle from "./Puzzle";
-import PuzzleControls from "./PuzzleControls";
+import Puzzle from "./features/Puzzle/Puzzle";
+import PuzzleControls from "./features/Puzzle/PuzzleControls";
 import configureStore from "./store/index";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";

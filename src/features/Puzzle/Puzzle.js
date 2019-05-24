@@ -2,12 +2,12 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import Piece from "./Piece";
-import { getPiecePosition } from "./helpers/puzzle-grid.helpers";
-import { movePiece } from "./store/puzzle/puzzle.actions";
+import { getPiecePosition } from "../../helpers/puzzle-grid.helpers";
+import { movePiece } from "../../store/puzzle/puzzle.actions";
 import {
   emptyPieceIndexSelector,
   piecesSelector
-} from "./store/puzzle/puzzle.selectors";
+} from "../../store/puzzle/puzzle.selectors";
 
 const StyledPuzzle = styled.div`
   border: 1px solid black;

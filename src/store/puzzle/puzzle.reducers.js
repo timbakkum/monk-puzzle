@@ -1,4 +1,4 @@
-import { shufflePieces } from "../../helpers/puzzle-grid.helpers";
+import { shufflePieces, swapPiece } from "../../helpers/puzzle-grid.helpers";
 
 const initialState = {
   isSolved: false,
@@ -32,14 +32,8 @@ export const puzzle = (state = initialState, { type, payload }) => {
       };
     case "SWAP_PIECE":
       const { pieceIndex, emptyIndex } = payload;
-      const pieces = [...state.pieces];
-      // assign the pieces to be swapped to the index of the other piece
-      [pieces[emptyIndex], pieces[pieceIndex]] = [
-        pieces[pieceIndex],
-        pieces[emptyIndex]
-      ];
-
-      return { ...state, pieces, isEmptyPiece: pieceIndex };
+      const newPieces = swapPiece([...state.pieces], pieceIndex, emptyIndex);
+      return { ...state, pieces: newPieces, isEmptyPiece: pieceIndex };
     case "SHUFFLE_PIECES":
       const shuffledPieces = shufflePieces([...state.pieces]);
       return {

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import { startPuzzle, startEasyMode } from "./store/puzzle/puzzle.actions";
+import { startPuzzle, startEasyMode } from "../../store/puzzle/puzzle.actions";
 
 const Controls = styled.div`
   display: flex;

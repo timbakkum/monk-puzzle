@@ -10,6 +10,18 @@ export const startPuzzle = () => {
   };
 };
 
+export const startEasyMode = () => {
+  return {
+    type: "START_EASY_MODE"
+  };
+};
+
+export const resetPuzzle = () => {
+  return {
+    type: "RESET_PUZZLE"
+  };
+};
+
 export const movePiece = pieceIndex => {
   return {
     type: "MOVE_PIECE",

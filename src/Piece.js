@@ -15,6 +15,9 @@ const StyledPiece = styled.div`
   background-repeat: no-repeat;
   background-position: ${props => props.intendedColumn * -125}px
     ${props => props.intendedRow * -125}px;
+  opacity: ${props => (props.isActive ? 1 : 0.5)};
+  transition: opacity 0.5s ease;
+  cursor: ${props => (props.isActive ? "pointer" : "not-allowed")};
 `;
 
 const AnimatedPiece = animated(StyledPiece);
@@ -30,7 +33,8 @@ export default function Piece({
   position: { row, column },
   intendedPosition: { row: intendedRow, column: intendedColumn },
   isEmpty,
-  handlePieceClick
+  handlePieceClick,
+  isActive
 }) {
   const x = `${column * 100}%`;
   const y = `${row * 100}%`;
@@ -46,8 +50,11 @@ export default function Piece({
       intendedRow={intendedRow}
       intendedColumn={intendedColumn}
       isEmpty={isEmpty}
-      onClick={() => handlePieceClick(index)}
+      onClick={() => {
+        isActive && handlePieceClick(index);
+      }}
       pieceNumber={pieceNumber}
+      isActive={isActive}
     />
   );
 }

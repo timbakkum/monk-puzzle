@@ -13,7 +13,17 @@ export const puzzle = (state = initialState, { type, payload }) => {
     case "START_PUZZLE":
       return {
         ...state,
-        isStarted: true
+        moves: 0,
+        isStarted: true,
+        isSolved: false
+      };
+    case "START_EASY_MODE":
+      return {
+        ...state,
+        moves: 0,
+        isStarted: true,
+        isSolved: false,
+        pieces: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 14]
       };
     case "MOVE_PIECE":
       return {
@@ -37,8 +47,6 @@ export const puzzle = (state = initialState, { type, payload }) => {
         pieces: shuffledPieces
       };
     case "WIN_PUZZLE":
-      console.log("test redc");
-      alert("you won dude!");
       return {
         ...state,
         isSolved: true,

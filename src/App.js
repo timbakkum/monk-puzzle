@@ -1,8 +1,10 @@
 import React from "react";
 import { Provider } from "react-redux";
-import logo from "./logo.svg";
+import { ToastContainer } from "react-toastify";
 import Puzzle from "./Puzzle";
+import PuzzleControls from "./PuzzleControls";
 import configureStore from "./store/index";
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
 const store = configureStore();
@@ -12,12 +14,23 @@ function App() {
     <Provider store={store}>
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>Puzzle draft</p>
+          <p>Monk Puzzle</p>
         </header>
         <main>
           <Puzzle />
+          <PuzzleControls />
         </main>
+        <ToastContainer
+          position="bottom-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop
+          closeOnClick
+          rtl={false}
+          pauseOnVisibilityChange
+          draggable
+          pauseOnHover
+        />
       </div>
     </Provider>
   );

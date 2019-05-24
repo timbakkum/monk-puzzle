@@ -15,7 +15,7 @@ export const shufflePieces = pieces => {
   let shuffledPieces;
   do {
     shuffledPieces = shuffle(pieces.slice());
-  } while (!isSolved(pieces));
+  } while (isSolved(shufflePieces));
 
   return shuffledPieces;
 };

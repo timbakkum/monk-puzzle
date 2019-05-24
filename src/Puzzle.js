@@ -1,21 +1,22 @@
 import React from "react";
 import { connect } from "react-redux";
+import styled from "styled-components";
 import Piece from "./Piece";
 import { getPiecePosition } from "./helpers/puzzle-grid.helpers";
 import { movePiece } from "./store/puzzle/puzzle.actions";
 
-export function Puzzle({ pieces, emptyIndex, handlePieceClick }) {
+const StyledPuzzle = styled.div`
+  border: 1px solid black;
+  width: 500px;
+  height: 500px;
+  margin: 20px auto;
+  position: relative;
+  background: white;
+`;
+
+export function Puzzle({ pieces, emptyIndex, handlePieceClick, isStarted }) {
   return (
-    <div
-      style={{
-        // TODO make styled component
-        border: "1px solid black",
-        width: "500px",
-        height: "500px",
-        margin: "20px auto",
-        position: "relative"
-      }}
-    >
+    <StyledPuzzle>
       {pieces.map((p, i) => (
         <Piece
           key={p}
@@ -26,9 +27,10 @@ export function Puzzle({ pieces, emptyIndex, handlePieceClick }) {
           intendedPosition={getPiecePosition(p)}
           isEmpty={emptyIndex === i}
           handlePieceClick={handlePieceClick}
+          isActive={isStarted}
         />
       ))}
-    </div>
+    </StyledPuzzle>
   );
 }
 
@@ -37,7 +39,8 @@ const mapStateToProps = state => {
     // TODO refactor to selector fn as well?
     pieces: state.puzzle.pieces,
     // TODO refactor below to selector fn
-    emptyIndex: state.puzzle.pieces.indexOf(state.puzzle.emptyPiece)
+    emptyIndex: state.puzzle.pieces.indexOf(state.puzzle.emptyPiece),
+    isStarted: state.puzzle.isStarted
   };
 };
 
@@ -45,9 +48,9 @@ const mapDispatchToProps = dispatch => ({
   handlePieceClick: pieceIndex => dispatch(movePiece(pieceIndex))
 });
 
-const connectedPuzzle = connect(
+const ConnectedPuzzle = connect(
   mapStateToProps,
   mapDispatchToProps
 )(Puzzle);
 
-export default connectedPuzzle;
+export default ConnectedPuzzle;

@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import {
   hasEmptyAdjacentPiece,
   isSolved
@@ -23,6 +24,15 @@ export const puzzleMiddleware = store => next => action => {
 
       if (shouldSwap) {
         store.dispatch(swapPiece(action.payload.pieceIndex, adjacentIndex));
+      } else {
+        toast.error("🚫Invalid move!", {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true
+        });
       }
       break;
     case "SWAP_PIECE":
@@ -34,7 +44,16 @@ export const puzzleMiddleware = store => next => action => {
         store.dispatch(winPuzzle());
       }
       return swapResult;
-
+    case "WIN_PUZZLE":
+      toast.success("🏆 A winner is you!", {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true
+      });
+      break;
     case "START_PUZZLE":
       store.dispatch(shufflePieces());
       break;

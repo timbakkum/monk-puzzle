@@ -8,6 +8,7 @@ import {
   emptyPieceIndexSelector,
   piecesSelector
 } from "../../store/puzzle/puzzle.selectors";
+import { PUZZLE_COLUMNS } from "../../constants";
 
 const StyledPuzzle = styled.div`
   border: 1px solid black;
@@ -26,9 +27,9 @@ export function Puzzle({ pieces, emptyIndex, handlePieceClick, isStarted }) {
           key={p}
           index={i}
           pieceNumber={p}
-          position={getPiecePosition(i)}
+          position={getPiecePosition(i, PUZZLE_COLUMNS)}
           // TODO intendedPosition is a shit name, rename this
-          intendedPosition={getPiecePosition(p)}
+          intendedPosition={getPiecePosition(p, PUZZLE_COLUMNS)}
           isEmpty={emptyIndex === i}
           handlePieceClick={handlePieceClick}
           isActive={isStarted}

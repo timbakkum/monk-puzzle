@@ -31,9 +31,9 @@ export const swapPiece = (pieces, originIndex, targetIndex) => {
   return newPieces;
 };
 
-export const getPiecePosition = index => {
-  const row = Math.floor(index / PUZZLE_COLUMNS);
-  const column = index % PUZZLE_COLUMNS;
+export const getPiecePosition = (index, puzzleColumns) => {
+  const row = Math.floor(index / puzzleColumns);
+  const column = index % puzzleColumns;
 
   return {
     row,
@@ -41,29 +41,96 @@ export const getPiecePosition = index => {
   };
 };
 
+const isEmptyPieceInGrid = (emptyPieceIndex, puzzleColumns, puzzleRows) => {
+  const puzzleSize = puzzleColumns * puzzleRows;
+  return emptyPieceIndex >= 0 && emptyPieceIndex < puzzleSize;
+};
+
+const hasEmptyPieceAbove = (
+  currentPieceIndex,
+  emptyPieceIndex,
+  puzzleColumns,
+  rowIndex
+) => {
+  return (
+    currentPieceIndex - puzzleColumns === emptyPieceIndex && rowIndex !== 0
+  );
+};
+
+const hasEmptyPieceBelow = (
+  currentPieceIndex,
+  emptyPieceIndex,
+  puzzleColumns,
+  rowIndex
+) => {
+  return (
+    currentPieceIndex + puzzleColumns === emptyPieceIndex && rowIndex !== -1
+  );
+};
+
+const hasEmptyPieceLeft = (currentPieceIndex, emptyPieceIndex, columnIndex) => {
+  return currentPieceIndex - 1 === emptyPieceIndex && columnIndex !== 0;
+};
+
+const hasEmptyPieceRight = (
+  currentPieceIndex,
+  emptyPieceIndex,
+  rightColumnIndex
+) => {
+  return currentPieceIndex + 1 === emptyPieceIndex && rightColumnIndex !== 0;
+};
+
 export const hasEmptyAdjacentPiece = (currentPieceIndex, emptyPieceIndex) => {
-  // TODO refactor reused logic using helper function defined above!!
-  const isInGrid =
-    emptyPieceIndex >= 0 && emptyPieceIndex < PUZZLE_COLUMNS * PUZZLE_ROWS;
-  const hasEmptyPieceAbove =
-    currentPieceIndex - PUZZLE_COLUMNS === emptyPieceIndex &&
-    Math.floor(currentPieceIndex / PUZZLE_COLUMNS) !== 0;
-  const hasEmptyPieceBelow =
-    currentPieceIndex + PUZZLE_COLUMNS === emptyPieceIndex &&
-    Math.floor(currentPieceIndex / PUZZLE_COLUMNS) !== PUZZLE_ROWS - 1;
-  const hasEmptyPieceLeft =
-    currentPieceIndex - 1 === emptyPieceIndex &&
-    currentPieceIndex % PUZZLE_COLUMNS !== 0;
-  const hasEmptyPieceRight =
-    currentPieceIndex + 1 === emptyPieceIndex &&
-    (currentPieceIndex + 1) % PUZZLE_COLUMNS !== 0;
+  // TODO make this a pure function and pass COLUMNS and ROWS as args
+  const { row: rowIndex, column: columnIndex } = getPiecePosition(
+    currentPieceIndex,
+    PUZZLE_COLUMNS
+  );
+  const { column: rightColumnIndex } = getPiecePosition(
+    currentPieceIndex + 1,
+    PUZZLE_COLUMNS
+  );
+
+  const isInGrid = isEmptyPieceInGrid(
+    emptyPieceIndex,
+    PUZZLE_COLUMNS,
+    PUZZLE_ROWS
+  );
+  const isEmptyPieceAbove = hasEmptyPieceAbove(
+    currentPieceIndex,
+    emptyPieceIndex,
+    PUZZLE_COLUMNS,
+    rowIndex
+  );
+
+  const isEmptyPieceBelow = hasEmptyPieceBelow(
+    currentPieceIndex,
+    emptyPieceIndex,
+    PUZZLE_COLUMNS,
+    rowIndex
+  );
+
+  const isEmptyPieceLeft = hasEmptyPieceLeft(
+    currentPieceIndex,
+    emptyPieceIndex,
+    columnIndex
+  );
+  const isEmptyPieceRight = hasEmptyPieceRight(
+    currentPieceIndex,
+    emptyPieceIndex,
+    rightColumnIndex
+  );
+
+  // check if target is in grid
   if (!isInGrid) return false;
+  // check if target is not origin
   if (currentPieceIndex === emptyPieceIndex) return false;
+  // check if target is adjacent
   if (
-    hasEmptyPieceAbove ||
-    hasEmptyPieceBelow ||
-    hasEmptyPieceLeft ||
-    hasEmptyPieceRight
+    isEmptyPieceAbove ||
+    isEmptyPieceBelow ||
+    isEmptyPieceLeft ||
+    isEmptyPieceRight
   ) {
     return true;
   }

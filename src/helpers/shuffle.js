@@ -4,7 +4,7 @@
  * @param  {Array} array The array to shuffle
  * @return {String}      The first item in the shuffled array
  */
-const shuffle = function(array) {
+export const shuffle = function(array) {
   var currentIndex = array.length;
   var temporaryValue, randomIndex;
 
@@ -23,4 +23,4 @@ const shuffle = function(array) {
   return array;
 };
 
-export default shuffle;
+export default { shuffle };

@@ -1,5 +1,5 @@
 import { PUZZLE_ROWS, PUZZLE_COLUMNS } from "./../constants";
-import shuffle from "./shuffle";
+import { shuffle } from "./shuffle";
 
 export const isSolved = pieces => {
   // solved array values equal 0, 1, 2, 3 and so forth
@@ -68,4 +68,12 @@ export const hasEmptyAdjacentPiece = (currentPieceIndex, emptyPieceIndex) => {
     return true;
   }
   return false;
+};
+
+export default {
+  isSolved,
+  shufflePieces,
+  swapPiece,
+  getPiecePosition,
+  hasEmptyAdjacentPiece
 };

@@ -8,12 +8,12 @@ import {
   emptyPieceIndexSelector,
   piecesSelector
 } from "../../store/puzzle/puzzle.selectors";
-import { PUZZLE_COLUMNS } from "../../constants";
+import { PUZZLE_COLUMNS, PUZZLE_SIZE } from "../../constants";
 
 const StyledPuzzle = styled.div`
   border: 1px solid black;
-  width: 500px;
-  height: 500px;
+  width: ${PUZZLE_SIZE}px;
+  height: ${PUZZLE_SIZE}px;
   margin: 20px auto;
   position: relative;
   background: white;

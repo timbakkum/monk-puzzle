@@ -28,7 +28,7 @@ export function Puzzle({ pieces, emptyIndex, handlePieceClick, isStarted }) {
           index={i}
           pieceNumber={p}
           position={getPiecePosition(i, PUZZLE_COLUMNS)}
-          // TODO intendedPosition is a shit name, rename this
+          // TODO intendedPosition is not the best name, maybe think of something better
           intendedPosition={getPiecePosition(p, PUZZLE_COLUMNS)}
           isEmpty={emptyIndex === i}
           handlePieceClick={handlePieceClick}
